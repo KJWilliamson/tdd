@@ -11,6 +11,8 @@ __author__ = "kamela williamson"
 # https://docs.python.org/3/library/unittest.html#module-unittest
 # https://docs.python.org/3/library/unittest.html#basic-example
 # https://docs.python.org/3/library/unittest.html#assert-methods
+# https://docs.python.org/3/library/unittest.html#unittest.TestCase.debug
+# https://docs.python.org/3/howto/argparse.html
 
 import sys
 

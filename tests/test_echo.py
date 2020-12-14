@@ -7,7 +7,7 @@ Students MUST EDIT this module, to add more tests to run
 against the 'echo.py' program.
 """
 
-__author__ = "???"
+__author__ = "kamela williamson"
 
 import sys
 import importlib
@@ -130,16 +130,23 @@ class TestEcho(unittest.TestCase):
     # You may borrow some test code from previous assignments!
     #
     def test_flake8(self):
-        # your code here
-        self.fail()  # replace me
+        # your code here. took from copyspecial tests.
+        """Checking for PEP8/flake8 compliance"""
+        result = subprocess.run(['flake8', self.module.__file__])
+        self.assertEqual(result.returncode, 0)
 
     #
     # Students: add an __author__ test here.
     # You may borrow some test code from previous assignments!
     #
     def test_author(self):
-        # your code here
-        self.fail()  # replace me
+        # your code here. took from copyspecial tests
+        """Checking for author string"""
+        self.assertIsNotNone(self.module.__author__)
+        self.assertNotEqual(
+            self.module.__author__, "???",
+            "Author string is not completed"
+            )
 
 
 if __name__ == '__main__':
