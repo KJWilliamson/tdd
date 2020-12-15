@@ -61,13 +61,12 @@ class TestEcho(unittest.TestCase):
         self.assertIsInstance(
             result, argparse.ArgumentParser,
             "create_parser() function is not returning a parser object")
-
     #
     # Students: add more parser tests here:
     # - Does it understand the --upper option?
     # - Does it understand `--lower` ? or `--title` ?
     # - If you enable one option as true, are the rest false?
-    #
+
     def test_parser_namespace(self):
         # your code here
         self.fail()  # replace me
@@ -89,41 +88,53 @@ class TestEcho(unittest.TestCase):
     def test_lower_short(self):
         """Check if short option '-l' performs lowercasing"""
         args = ["-l", "HELLO WORLD"]
-        output = run_capture(self.module.__file__, args)
-        self.assertEqual(output[0], "hello world")
+        self.assertEqual(self.module.main(args), "hello world")
 
     #
     # Students: add more cmd line options tests below.
     # Replace `self.fail()` with your own code
     #
-
     def test_lower_long(self):
         # your code here
-        self.fail()  # replace me
+        """Check if long option '--lower' performs lowercasing """
+        args = ['--lower', 'HELLO WORLD']
+        self.assertEqual(self.module.main(args), 'hello world')
 
     def test_upper_short(self):
         # your code here
-        self.fail()  # replace me
+        """Check if short '-u' performs uppercasing """
+        args = ['-u', 'hello world']
+        self.assertEqual(self.module.main(args), 'HELLO WORLD')
 
     def test_upper_long(self):
         # your code here
-        self.fail()  # replace me
+        """Check if long '--upper' performs uppercasing"""
+        args = ['--upper', 'hello world']
+        self.assertEqual(self.module.main(args), 'HELLO WORLD')
 
     def test_title_short(self):
         # your code here
-        self.fail()  # replace me
+        """ Check if short '-t' performs titlecase"""
+        args = ['-t', 'hello world']
+        self.assertEqual(self.module.main(args), 'Hello World')
 
     def test_title_long(self):
         # your code here
-        self.fail()  # replace me
+        """ Check if long '--title' performs titlecase"""
+        args = ['--title', 'hello world']
+        self.assertEqual(self.module.main(args), 'Hello World')
 
     def test_multiple_options(self):
         # your code here
-        self.fail()  # replace me
+        """ Check multiple options '-lut' """
+        args = ['-lut', 'hElLo WOrlD']
+        self.assertEqual(self.module.main(args), 'Hello World')
 
     def test_help_message(self):
         # your code here
-        self.fail()  # replace me
+        """ Check for no test puts out whatever you tell it"""
+        args = ['Hello World']
+        self.assertEqual(self.module.main(args), 'Hello World')
 
     #
     # Students: add a flake8 test here.
@@ -135,10 +146,8 @@ class TestEcho(unittest.TestCase):
         result = subprocess.run(['flake8', self.module.__file__])
         self.assertEqual(result.returncode, 0)
 
-    #
     # Students: add an __author__ test here.
     # You may borrow some test code from previous assignments!
-    #
     def test_author(self):
         # your code here. took from copyspecial tests
         """Checking for author string"""
