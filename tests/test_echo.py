@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Implements a test fixture for the echo.py module
@@ -8,6 +8,9 @@ against the 'echo.py' program.
 """
 
 __author__ = "kamela williamson"
+# DeQuan reminded me run_capture needed to be in
+# all states and explained namespace
+# April helped with namespace
 
 import sys
 import importlib
@@ -69,7 +72,13 @@ class TestEcho(unittest.TestCase):
 
     def test_parser_namespace(self):
         # your code here
-        self.fail()  # replace me
+        args = ['-u', 'hello']
+        parser = self.module.create_parser()
+        ns = parser.parse_args(args)
+        self.assertTrue(ns.upper)
+        self.assertFalse(ns.lower)
+        self.assertFalse(ns.title)
+        self.assertEqual(ns.text, 'hello')
 
     def test_echo(self):
         """Check if main() function prints anything at all"""
@@ -88,7 +97,8 @@ class TestEcho(unittest.TestCase):
     def test_lower_short(self):
         """Check if short option '-l' performs lowercasing"""
         args = ["-l", "HELLO WORLD"]
-        self.assertEqual(self.module.main(args), "hello world")
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], "hello world")
 
     #
     # Students: add more cmd line options tests below.
@@ -98,43 +108,50 @@ class TestEcho(unittest.TestCase):
         # your code here
         """Check if long option '--lower' performs lowercasing """
         args = ['--lower', 'HELLO WORLD']
-        self.assertEqual(self.module.main(args), 'hello world')
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], 'hello world')
 
     def test_upper_short(self):
         # your code here
         """Check if short '-u' performs uppercasing """
         args = ['-u', 'hello world']
-        self.assertEqual(self.module.main(args), 'HELLO WORLD')
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], 'HELLO WORLD')
 
     def test_upper_long(self):
         # your code here
         """Check if long '--upper' performs uppercasing"""
         args = ['--upper', 'hello world']
-        self.assertEqual(self.module.main(args), 'HELLO WORLD')
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], 'HELLO WORLD')
 
     def test_title_short(self):
         # your code here
         """ Check if short '-t' performs titlecase"""
         args = ['-t', 'hello world']
-        self.assertEqual(self.module.main(args), 'Hello World')
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], 'Hello World')
 
     def test_title_long(self):
         # your code here
         """ Check if long '--title' performs titlecase"""
         args = ['--title', 'hello world']
-        self.assertEqual(self.module.main(args), 'Hello World')
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], 'Hello World')
 
     def test_multiple_options(self):
         # your code here
         """ Check multiple options '-lut' """
         args = ['-lut', 'hElLo WOrlD']
-        self.assertEqual(self.module.main(args), 'Hello World')
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], 'Hello World')
 
     def test_help_message(self):
         # your code here
         """ Check for no test puts out whatever you tell it"""
         args = ['Hello World']
-        self.assertEqual(self.module.main(args), 'Hello World')
+        output = run_capture(self.module.__file__, args)
+        self.assertEqual(output[0], 'Hello World')
 
     #
     # Students: add a flake8 test here.

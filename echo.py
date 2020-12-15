@@ -54,6 +54,7 @@ def main(args):
         text = text.lower()
     if args.title:
         text = text.title()
+    print(text)
     return text
 
 
